@@ -37,6 +37,23 @@ You should see the following output:
 ``` 
 Open a web browser and move to http://127.0.0.1:5000/ to make the app work
 
+## Content
+The project consists in a Python web app which, reads the movie titles from the BBC iPlayer Json 
+access the moviesDb and fetches ratings for those movies.
+
+![My image](static/css/images/bbc_movies.png)
+
+Class:
+``` Python
+class Dictlist(dict):
+``` 
+I changed the behavior of dicts, creating a subclass that automatically store duplicated values in lists under the same key.
+
+Method:
+``` Python
+movieInfoFinder():
+``` 
+This method do the work, it fetches the movie titles from the BBC Json and then search for those movies ratings filling up a dict and rendering it back to the html page
 
 [1]: http://www.python.org
 [2]: http://flask.pocoo.org/docs/installation/#installation
