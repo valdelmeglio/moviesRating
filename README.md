@@ -54,6 +54,84 @@ Method:
 def movieInfoFinder():
 ``` 
 This method do the work, it fetches the movie titles from the BBC Json and then search for those movies ratings filling up a dict and rendering it back to the html page.
+Using requests, you can parse the BBC Json url and obtain the following output: 
+
+``` Python
+bbc_json_request=requests.get(bbc_url)
+bbc_json=bbc_json_request.json()
+```    
+
+```
+ {'episodes': 
+  [
+   {'programme': 
+     {'has_clips': True, 
+      'has_related_links': False, 
+      'is_legacy_media': False, 
+      'available_until': 2014-02-28T05:39:00Z', 
+      'title': The Little Promise', 
+      'has_segment_events': False, 
+      'media': {'expires': 2014-02-28T05:39:00Z', 
+                'availability': 3 days left to watch', 
+                'format': video'
+              }, 
+      'image': {'pid': p01jztkb'
+               }, 
+      'has_medium_or_long_synopsis': True, 
+      'pid': b0371spw', 
+      'is_available_mediaset_pc_sd': True, 
+      'short_synopsis': 'Jack is embarrassed by his dad who is deaf and signs.', 
+      'first_broadcast_date': '2013-07-19T05:30:00+01:00', 
+      'ownership': {'service': 
+                      {'type': 'tv', 
+                       'id': 'bbc_two', 
+                       'key': 'bbctwo', 
+                       'title': 'BBC Two'
+                      }
+                   }, 
+      'position': None, 
+      'duration': 900, 
+      'media_type': 'audio_video', 
+      'type': episode', 
+      'display_titles': {'subtitle': '',
+                         'title': 'The Little Promise'
+                        }, 
+      'actual_start': '2014-02-21T05:40:00Z'
+      }
+    }
+  ], 
+  'total': 7, 
+  'page': 1, 
+  'offset': 0
+ }
+```
+You can now access all the movie infos accessing to this data; for example typing
+``` Python
+bbc_json['episodes'][i]['programme']['title']
+```
+will give you the movie title.
+We can then pass the results to the Html page with:
+
+``` Python
+return render_template('index.html', rating=rating) 
+```
+and fetching those results from the html page with:
+
+``` html
+   {% for movie in rating %}
+      <div class="starter-template">
+        <h1>Title: <td>{{ movie }}</td>.</h1>
+      </div>
+        <p class="lead">Rating: {{rating[movie][0]}}</p>
+        <p class="lead">Plot: {{rating[movie][1]}}</p>
+        <br>
+     {%if rating[movie][2]%}
+      <img src="{{rating[movie][2]}}" width="555" height="834" style="float left">
+     {%endif%}
+     <br>
+   {% endfor %}
+```
+
 ![My image](static/css/images/html_page.png)
 
 [1]: http://www.python.org
