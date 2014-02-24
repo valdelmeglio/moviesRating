@@ -38,7 +38,7 @@ You should see the following output:
 Open a web browser and move to http://127.0.0.1:5000/ to make the app work.
 
 ## Content
-The project consists in a Python web app which, reads the movie titles from the BBC iPlayer Json 
+The project consists in a Python web app which reads the movie titles from the BBC iPlayer Json 
 and access the moviesDb fetching the ratings for those movies.
 
 ![My image](static/css/images/bbc_movies.png)
@@ -117,7 +117,7 @@ We can then pass the results to the Html page with:
 ``` Python
 return render_template('index.html', rating=rating) 
 ```
-and fetching those results from the html page with:
+and fetching them from the html page with:
 
 ``` html
 {% for movie in rating %}
