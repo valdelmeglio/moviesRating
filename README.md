@@ -56,7 +56,9 @@ def movieInfoFinder():
 This method do the work, it fetches the movie titles from the BBC Json and then search for those movies ratings filling up a dict and rendering it back to the html page.
 Using requests, you can parse the BBC Json url and obtain the following output: 
 
+
 ``` Python
+bbc_url = "http://www.bbc.co.uk/tv/programmes/formats/films/player/episodes.json"
 bbc_json_request=requests.get(bbc_url)
 bbc_json=bbc_json_request.json()
 ```    
@@ -105,9 +107,9 @@ bbc_json=bbc_json_request.json()
   'offset': 0
  }
 ```
-You can now access all the movie infos accessing to this data; for example typing
+You can now access all the movie infos accessing to this data; for example typing:
 ``` Python
-bbc_json['episodes'][i]['programme']['title']
+bbc_json['episodes'][0]['programme']['title']
 ```
 will give you the movie title.
 We can then pass the results to the Html page with:
@@ -118,18 +120,18 @@ return render_template('index.html', rating=rating)
 and fetching those results from the html page with:
 
 ``` html
-   {% for movie in rating %}
-      <div class="starter-template">
-        <h1>Title: <td>{{ movie }}</td>.</h1>
-      </div>
-        <p class="lead">Rating: {{rating[movie][0]}}</p>
-        <p class="lead">Plot: {{rating[movie][1]}}</p>
-        <br>
-     {%if rating[movie][2]%}
-      <img src="{{rating[movie][2]}}" width="555" height="834" style="float left">
-     {%endif%}
+{% for movie in rating %}
+  <div class="starter-template">
+    <h1>Title: <td>{{ movie }}</td>.</h1>
+  </div>
+    <p class="lead">Rating: {{rating[movie][0]}}</p>
+    <p class="lead">Plot: {{rating[movie][1]}}</p>
+    <br>
+  {%if rating[movie][2]%}
+     <img src="{{rating[movie][2]}}" width="555" height="834" style="float left">
+  {%endif%}
      <br>
-   {% endfor %}
+{% endfor %}
 ```
 
 ![My image](static/css/images/html_page.png)
