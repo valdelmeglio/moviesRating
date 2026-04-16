@@ -1,12 +1,12 @@
 from flask import Flask, render_template
-import urllib2, requests, json
+import urllib2, requests, json, os
 
 
 app = Flask(__name__)
 
 bbc_url = "http://www.bbc.co.uk/tv/programmes/formats/films/player/episodes.json"
 movieDb_api = 'http://api.themoviedb.org/3/search/movie?api_key={key}&query={title}'
-key = '935be2f95e54dddddc67f6ee8953c6c0'
+key = os.environ.get('MOVIEDB_API_KEY')
 poster_url='http://image.tmdb.org/t/p/original{url_to_poster}'
 
 # Changing the behavior of dicts, creating a subclass that  
